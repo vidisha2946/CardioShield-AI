@@ -1708,3 +1708,137 @@ body {
     padding: 2rem 1.5rem;
   }
 }
+
+/* Report Page Responsive Styles */
+.report-page-card {
+  padding: 3rem;
+  border-top-width: 6px;
+  border-top-style: solid;
+}
+
+.report-header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 2rem;
+}
+
+.report-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.report-banner {
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.report-banner-title {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 800;
+}
+
+.report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--text-main);
+}
+
+.report-table td {
+  padding: 1rem 0;
+}
+
+.report-table tr {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.report-table tr:last-child {
+  border-bottom: none;
+}
+
+.report-chart-section {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.report-recommendation-box {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--nav-bg);
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .report-page-card {
+    padding: 1.5rem;
+    /* Reduce padding significantly */
+  }
+
+  .report-title {
+    font-size: 1.8rem;
+    flex-wrap: wrap;
+    /* Allow icon and text to wrap if needed */
+  }
+
+  .report-banner {
+    padding: 1.5rem;
+  }
+
+  .report-banner-title {
+    font-size: 1.5rem;
+  }
+
+  .report-grid {
+    grid-template-columns: 1fr;
+    /* Force single column */
+    gap: 2rem;
+  }
+}
+
+.report-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.report-back-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+  padding: 0;
+  color: var(--text-muted);
+  transition: color 0.2s;
+}
+
+.report-back-btn:hover {
+  color: var(--text-main);
+}
+
+.report-download-btn {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+}

@@ -31,29 +31,27 @@ const ReportPage = () => {
             <div className="diagnostic-full-width" style={{ maxWidth: '1000px' }}>
                 
                 {/* Header Controls */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                <div className="report-controls">
                     <button 
                         onClick={() => navigate(-1)} 
-                        className="btn-highlight" 
-                        style={{ border: 'none', background: 'transparent', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1rem', padding: '0' }}
+                        className="report-back-btn" 
                     >
                         <FaArrowLeft /> Back
                     </button>
                     <button 
                         onClick={() => generatePDF(formData, result)}
-                        className="submit-btn"
-                        style={{ padding: '0.8rem 1.5rem', fontSize: '1rem' }}
+                        className="submit-btn report-download-btn"
                     >
                         <FaFileDownload /> Download PDF
                     </button>
                 </div>
 
                 {/* Report Card */}
-                <div className="card" style={{ padding: '3rem', borderTop: `6px solid ${result.result === 1 ? '#f43f5e' : '#4ade80'}` }}>
+                <div className="card report-page-card" style={{ borderColor: result.result === 1 ? '#f43f5e' : '#4ade80' }}>
                     
                     {/* Report Header */}
-                    <div style={{ textAlign: 'center', marginBottom: '3rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
-                        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
+                    <div className="report-header-section">
+                        <h1 className="report-title">
                             <FaHeartbeat style={{ color: 'var(--primary)' }} /> CardioShield AI
                         </h1>
                         <p style={{ color: 'var(--text-muted)' }}>Advanced Cardiac Health Diagnostic Report</p>
@@ -61,15 +59,11 @@ const ReportPage = () => {
                     </div>
 
                     {/* AI Result Banner */}
-                    <div style={{ 
+                    <div className="report-banner" style={{ 
                         background: result.result === 1 ? 'rgba(244, 63, 94, 0.1)' : 'rgba(74, 222, 128, 0.1)', 
-                        padding: '2rem', 
-                        borderRadius: '1rem', 
-                        textAlign: 'center',
-                        marginBottom: '3rem',
                         border: `1px solid ${result.result === 1 ? 'rgba(244, 63, 94, 0.3)' : 'rgba(74, 222, 128, 0.3)'}`
                     }}>
-                        <h2 style={{ fontSize: '2rem', margin: 0, color: result.result === 1 ? '#f43f5e' : '#4ade80' }}>
+                        <h2 className="report-banner-title" style={{ color: result.result === 1 ? '#f43f5e' : '#4ade80' }}>
                             {result.result === 1 ? 'HIGH RISK DETECTED' : 'LOW RISK DETECTED'}
                         </h2>
                         <p style={{ fontSize: '1.2rem', marginTop: '1rem', color: 'var(--text-main)' }}>
@@ -78,18 +72,18 @@ const ReportPage = () => {
                     </div>
 
                     {/* Data Grid */}
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '3rem' }}>
+                    <div className="report-grid">
                         
                         {/* Left: Patient Details */}
                         <div>
                             <h3 className="card-heading" style={{ fontSize: '1.4rem' }}>Patient Profile</h3>
-                            <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-main)' }}>
+                            <table className="report-table">
                                 <tbody>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Age</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.age} Years</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Gender</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.gender === '1' ? 'Female' : 'Male'}</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Height</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.height} cm</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Weight</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.weight} kg</td></tr>
-                                    <tr><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>BMI Score</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{result.bmi}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Age</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.age} Years</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Gender</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.gender === '1' ? 'Female' : 'Male'}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Height</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.height} cm</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Weight</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.weight} kg</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>BMI Score</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{result.bmi}</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -97,20 +91,20 @@ const ReportPage = () => {
                         {/* Right: Medical Stats */}
                         <div>
                             <h3 className="card-heading" style={{ fontSize: '1.4rem' }}>Clinical Vitals</h3>
-                            <table style={{ width: '100%', borderCollapse: 'collapse', color: 'var(--text-main)' }}>
+                            <table className="report-table">
                                 <tbody>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Blood Pressure</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.ap_hi}/{formData.ap_lo} mmHg</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Cholesterol</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{cholMap[formData.cholesterol]}</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Glucose</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{glucMap[formData.gluc]}</td></tr>
-                                    <tr style={{ borderBottom: '1px solid var(--border-color)' }}><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Smoker</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.smoke === '1' ? 'Yes' : 'No'}</td></tr>
-                                    <tr><td style={{ padding: '1rem 0', color: 'var(--text-muted)' }}>Alcohol Intake</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.alco === '1' ? 'Yes' : 'No'}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Blood Pressure</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.ap_hi}/{formData.ap_lo} mmHg</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Cholesterol</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{cholMap[formData.cholesterol]}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Glucose</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{glucMap[formData.gluc]}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Smoker</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.smoke === '1' ? 'Yes' : 'No'}</td></tr>
+                                    <tr><td style={{ color: 'var(--text-muted)' }}>Alcohol Intake</td><td style={{ textAlign: 'right', fontWeight: 'bold' }}>{formData.alco === '1' ? 'Yes' : 'No'}</td></tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
 
                     {/* Chart Section */}
-                    <div style={{ marginTop: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div className="report-chart-section">
                          <h4 style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Risk Visualization</h4>
                          <div style={{ height: '250px', width: '100%' }}>
                             <ResponsiveContainer width="100%" height="100%">
@@ -123,7 +117,7 @@ const ReportPage = () => {
                     </div>
 
                     {/* Recommendation Footer */}
-                    <div style={{ marginTop: '3rem', padding: '2rem', background: 'var(--nav-bg)', borderRadius: '1rem', border: '1px solid var(--border-color)' }}>
+                    <div className="report-recommendation-box">
                         <h4 style={{ margin: '0 0 1rem 0', color: 'var(--primary)' }}>Clinical Recommendation</h4>
                         <p style={{ lineHeight: '1.6', color: 'var(--text-main)' }}>
                             {result.result === 1 
