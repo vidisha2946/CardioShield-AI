@@ -740,14 +740,23 @@ body {
   }
 
   .btn-highlight {
-    padding: 0.7rem;
-    border-radius: 50%;
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    /* Restore visibility */
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0.5rem !important;
+    width: auto !important;
+    height: auto !important;
+    border-radius: 0 !important;
+    color: var(--text-muted) !important;
     font-size: 1.4rem;
+  }
+
+  .btn-highlight:hover {
+    color: var(--primary) !important;
+    background: transparent !important;
+    transform: none !important;
   }
 
   .nav-text {
@@ -794,10 +803,20 @@ body {
 
   .hero-visual-container {
     margin-top: 1rem;
-    /* Reduced from 2rem */
+    height: 350px;
+    /* Reduced fixed height for mobile flow */
+    width: 100%;
     transform: scale(0.6);
+    transform-origin: top center;
+    /* Scale from top to avoid gap */
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    /* Align to top */
+    position: relative;
+    z-index: 10;
+    margin-bottom: 2rem;
+    /* Buffer after heart animation */
   }
 
   /* About Section */
@@ -819,7 +838,7 @@ body {
 
   /* Feature Weighting responsiveness */
   .feature-weighting-section {
-    display: none !important;
+    padding: 1.5rem;
   }
 
   .fw-header {
@@ -835,7 +854,7 @@ body {
 
   /* Stats Section */
   .stats-section {
-    display: none !important;
+    padding: 0 1.5rem 2rem 1.5rem;
   }
 
   .stats-grid {
@@ -891,6 +910,33 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     text-align: center;
+  }
+
+  .section-connector {
+    display: flex !important;
+    height: 80px;
+    /* Increased for better visibility */
+    margin: 1rem 0;
+    /* Add vertical breathing room */
+  }
+
+  .section-connector .connector-dot {
+    opacity: 0.8;
+    /* Make dots clearly visible */
+    width: 8px;
+    height: 8px;
+  }
+}
+
+@keyframes pulse-dot {
+  from {
+    transform: scale(1);
+    box-shadow: 0 0 10px var(--accent);
+  }
+
+  to {
+    transform: scale(1.5);
+    box-shadow: 0 0 20px var(--accent);
   }
 }
 
@@ -1561,4 +1607,104 @@ body {
 
 [data-theme='light'] .fw-badge-text {
   color: #64748b;
+}
+
+/* Prediction Result Responsive Styles */
+.result-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+.result-content-left {
+  text-align: center;
+}
+
+.result-heading {
+  font-size: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.result-value {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 1rem 0;
+  background: linear-gradient(to right, #4ade80, #22d3ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.result-value.result-warning {
+  background: linear-gradient(to right, #fb7185, #f43f5e);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.result-subtext {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.result-stats-container {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.result-chart-container {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.chart-title {
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+
+.chart-percentage {
+  margin-top: -40px;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.result-recommendation {
+  margin-top: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .result-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .result-value {
+    font-size: 2.5rem;
+  }
+
+  .result-stats-container {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .stat-card {
+    min-width: 140px;
+  }
+
+  .result-card-container {
+    padding: 2rem 1.5rem;
+  }
 }

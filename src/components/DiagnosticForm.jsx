@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { FaUser, FaRulerVertical, FaWeight, FaSmoking, FaWineGlassAlt, FaRunning, FaTint, FaHeartbeat, FaIdCard, FaNotesMedical, FaWalking } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
+import { FaUser, FaRulerVertical, FaWeight, FaSmoking, FaWineGlassAlt, FaRunning, FaTint, FaHeartbeat, FaIdCard, FaNotesMedical, FaWalking, FaFileDownload } from 'react-icons/fa';
 import { MdBloodtype, MdMonitorHeart } from 'react-icons/md';
 import { GiHealthPotion } from 'react-icons/gi';
 import { RadialBarChart, RadialBar, Legend, Tooltip, ResponsiveContainer } from 'recharts';
 
 const DiagnosticForm = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         age: '29',
         gender: '1',
@@ -35,7 +37,7 @@ const DiagnosticForm = () => {
         setResult(null);
 
         try {
-            const response = await fetch('http://localhost:8000/predict', {
+            const response = await fetch('https://ml-dl-cardioshield-1.onrender.com/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
@@ -172,19 +174,19 @@ const DiagnosticForm = () => {
 
             {result && (
                 <div id="result-section" className="result-card-container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', alignItems: 'center' }}>
+                    <div className="result-grid">
                         
                         {/* Left Side: Text and Badges */}
-                        <div style={{ textAlign: 'center' }}>
-                            <h3 className="label" style={{ fontSize: '1.5rem', justifyContent: 'center' }}>Analysis Result</h3>
-                            <div className={`result-value ${result.result === 1 ? 'result-warning' : ''}`} style={{ fontSize: '3.5rem' }}>
+                        <div className="result-content-left">
+                            <h3 className="label result-heading">Analysis Result</h3>
+                            <div className={`result-value ${result.result === 1 ? 'result-warning' : ''}`}>
                                 {result.result === 1 ? 'High Risk' : 'Low Risk'}
                             </div>
-                            <div style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
+                            <div className="result-subtext">
                                 {result.result === 1 ? 'Immediate Attention Recommended' : 'Health Metrics Look Good'}
                             </div>
 
-                            <div className="result-stats" style={{ display: 'flex', gap: '2rem', justifyContent: 'center', marginTop: '2rem' }}>
+                            <div className="result-stats-container">
                                 <div className="stat-card">
                                     <div className="label" style={{ justifyContent: 'center' }}>Probability</div>
                                     <div style={{ fontSize: '1.8rem', fontWeight: 'bold', color: 'var(--accent)' }}>{result.prob}%</div>
@@ -197,8 +199,8 @@ const DiagnosticForm = () => {
                         </div>
 
                         {/* Right Side: Radial Chart */}
-                        <div style={{ height: '300px', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                            <h4 style={{ color: 'var(--text-muted)', marginBottom: '1rem' }}>Risk Probability Meter</h4>
+                        <div className="result-chart-container">
+                            <h4 className="chart-title">Risk Probability Meter</h4>
                             <ResponsiveContainer width="100%" height="100%">
                                 <RadialBarChart 
                                     innerRadius="60%" 
@@ -218,16 +220,26 @@ const DiagnosticForm = () => {
                                     <Legend iconSize={10} width={120} height={140} layout="vertical" verticalAlign="middle" wrapperStyle={{top: 0, left: 0, lineHeight: '24px', display: 'none'}} />
                                 </RadialBarChart>
                             </ResponsiveContainer>
-                            <div style={{ marginTop: '-40px', fontWeight: 'bold', fontSize: '2rem', color: result.prob > 50 ? '#f43f5e' : '#4ade80' }}>
+                            <div className="chart-percentage" style={{ color: result.prob > 50 ? '#f43f5e' : '#4ade80' }}>
                                 {result.prob}%
                             </div>
                         </div>
                     </div>
 
-                    <div style={{ marginTop: '2rem', textAlign: 'center', color: 'var(--text-muted)', borderTop: '1px solid var(--border-color)', paddingTop: '1.5rem' }}>
+                    <div className="result-recommendation">
                         {result.result === 1 
                             ? <p><strong>Recommendation:</strong> Consult a specialist. Focus on reducing blood pressure and maintaining a balanced diet.</p> 
                             : <p><strong>Recommendation:</strong> Keep up the good work! Regular check-ups are still advised.</p>}
+                        
+                        <div style={{ marginTop: '2rem' }}>
+                            <button 
+                                onClick={() => navigate('/report', { state: { formData, result } })}
+                                className="submit-btn" 
+                                style={{ margin: '0 auto', background: 'linear-gradient(135deg, #06b6d4, #3b82f6)' }}
+                            >
+                                <FaFileDownload /> View Full Report
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

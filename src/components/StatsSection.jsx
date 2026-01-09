@@ -34,7 +34,7 @@ const StatsSection = () => {
     ];
 
     return (
-        <section className="stats-section hidden-on-mobile">
+        <section className="stats-section">
             <div className="stats-container">
                 <h2 className="section-title">Model Performance</h2>
                 <div className="stats-grid">
